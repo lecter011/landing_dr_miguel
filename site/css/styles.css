@@ -22,7 +22,7 @@ input,select,textarea,button{font-family:inherit}
 .btn-outline:hover{background:var(--mist);color:var(--teal)}
 
 /* header */
-#dmc-header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+#dmc-header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .bar{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .nav-desktop{display:flex;align-items:center;gap:36px}
 .nav-desktop a{color:var(--navy);font-size:15px;font-weight:500}
@@ -47,8 +47,8 @@ input,select,textarea,button{font-family:inherit}
 #top{position:relative;height:350vh;background:#FFFFFF}
 #dmc-hero{position:sticky;top:0;height:100vh;overflow:hidden;background:#FFFFFF}
 #dmc-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-/* video edges (grey studio vignette) fade into the white page; brightness lifts its grey centre to white */
-#dmc-video{position:absolute;left:0;top:0;width:100%;height:auto;display:block;pointer-events:none;filter:brightness(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 95%);mask-image:radial-gradient(closest-side,#000 55%,transparent 95%)}
+/* edge fade to white + brightness are baked into the video files (CSS mask/filter re-ran per frame and stalled mobile) */
+#dmc-video{position:absolute;left:0;top:0;width:100%;height:auto;display:block;pointer-events:none}
 #dmc-copy{position:absolute;left:0;right:0;top:62%;opacity:0;visibility:hidden;padding:0 24px;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
 #dmc-copy h1{margin:0;font-family:'Gilda Display',serif;font-weight:400;font-size:clamp(28px,4vw,46px);line-height:1.15;color:var(--navy);max-width:640px;text-wrap:balance}
 #dmc-copy .btn{padding:15px 26px}

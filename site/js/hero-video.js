@@ -5,7 +5,9 @@
   'use strict';
 
   const CONFIG = {
-    video: 'assets/hero.mp4',              // re-encoded all-keyframe (ffmpeg -g 1) for smooth reverse scrubbing
+    // all-keyframe (ffmpeg -g 1) for smooth reverse scrubbing; vignette + brightness baked in (see CLAUDE.md)
+    video: 'assets/hero.mp4',              // 1920×1080
+    videoMobile: 'assets/hero-720.mp4',    // 1280×720 for phones/tablets — 1080p seeks stall mobile decoders
     images: {
       icon: 'assets/logo-icon.png',        // 1200×1200, transparent (same artwork as 4.png)
       lockup: 'assets/logo-horizontal.png' // 1200×1200, transparent (same artwork as 1.png)
@@ -45,15 +47,18 @@
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const S = CONFIG.stages, B = CONFIG.boxes, VI = CONFIG.videoIcon;
     let imgs = null, W = 0, H = 0, dpr = 1, L = null, progress = reduced ? 1 : 0;
-    let visible = true, destroyed = false, lastW = 0, lastH = 0, lastTime = -1;
+    let visible = true, destroyed = false, lastW = 0, lastH = 0, lastTime = -1, pendingTime = -1, canvasBlank = false;
     const mask = document.createElement('canvas'), mctx = mask.getContext('2d');
 
     stage.style.height = reduced ? '100vh' : (CONFIG.scrollLength + 1) * 100 + 'vh';
 
     // ponytail: whole file fetched as a blob so every frame is seekable; fine at ~3MB, use a streamed source if the video grows
-    fetch(CONFIG.video).then(r => r.blob()).then(b => { if (!destroyed) { video.src = URL.createObjectURL(b); video.load(); } })
+    const small = window.innerWidth < CONFIG.mobileBreakpoint || window.matchMedia('(pointer: coarse)').matches;
+    fetch(small ? CONFIG.videoMobile : CONFIG.video).then(r => r.blob()).then(b => { if (!destroyed) { video.src = URL.createObjectURL(b); video.load(); } })
       .catch(err => console.error('[DMCHero] video load failed', err));
     video.addEventListener('loadedmetadata', () => { lastTime = -1; render(progress); });
+    // one seek in flight at a time; stacking seeks makes mobile decoders restart and fall behind
+    video.addEventListener('seeked', () => { if (pendingTime >= 0) { video.currentTime = pendingTime; pendingTime = -1; } });
 
     function layout() {
       const mobile = W < CONFIG.mobileBreakpoint;
@@ -92,18 +97,20 @@
 
     function resize(force) {
       const w = window.innerWidth, h = window.innerHeight;
-      if (!force && w === lastW && Math.abs(h - lastH) < 120) return;
+      if (!force && w === lastW && Math.abs(h - lastH) < 120) return false;
       lastW = w; lastH = h;
       dpr = Math.min(window.devicePixelRatio || 1, CONFIG.maxDPR);
       const r = canvas.getBoundingClientRect();
       W = r.width || w; H = r.height || h;
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
       mask.width = canvas.width; mask.height = canvas.height;
+      canvasBlank = false;
       if (imgs) {
         L = layout();
         Object.assign(video.style, { left: L.vid.x + 'px', top: L.vid.y + 'px', width: L.vid.w + 'px', height: L.vid.h + 'px' });
         render(progress);
       }
+      return true;
     }
 
     function drawSrc(c, img, box, x, y, w, h) {
@@ -122,18 +129,20 @@
       const dur = video.duration;
       if (dur && !reduced) {
         const t = Math.min(dur - 0.001, dur * clamp01(p / S.videoEnd));
-        if (Math.abs(t - lastTime) > 0.001) { video.currentTime = t; lastTime = t; }
+        if (Math.abs(t - lastTime) > 0.001) { lastTime = t; if (video.seeking) pendingTime = t; else video.currentTime = t; }
       }
       const vA = 1 - range(p, S.fadeStart, S.fadeEnd);
       video.style.opacity = String(reduced ? 0 : vA);
       video.style.visibility = vA > 0.002 && !reduced ? 'visible' : 'hidden';
 
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.globalAlpha = 1; ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, W, H);
-
       // 2 — crisp icon, then move into the lockup and reveal the wordmark
       // icon sits solid under the fading video (its last frame matches), so only the grey backdrop fades
       const iconA = reduced || p >= S.fadeStart ? 1 : 0;
+      // while only the video shows, the canvas stays plain white — skip repainting it every frame
+      if (iconA === 0 && canvasBlank) { ui(p); return; }
+      canvasBlank = iconA === 0;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.globalAlpha = 1; ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, W, H);
       const revealT = clamp01((p - S.revealStart) / (S.revealEnd - S.revealStart));
       if (iconA > 0.002) {
         if (revealT >= 1 && !L.mobile) {
@@ -165,8 +174,8 @@
       ui(p);
     }
 
+    const hint = $('dmc-hint'), copy = $('dmc-copy'), header = $('dmc-header'), fab = $('dmc-fab');
     function ui(p) {
-      const hint = $('dmc-hint'), copy = $('dmc-copy'), header = $('dmc-header'), fab = $('dmc-fab');
       if (hint) { hint.style.opacity = String(1 - range(p, 0, 0.025)); hint.style.visibility = p < 0.025 ? 'visible' : 'hidden'; }
       if (copy) {
         const a = range(p, S.copyStart, 1);
@@ -176,7 +185,8 @@
         copy.style.pointerEvents = a > 0.6 ? 'auto' : 'none';
         copy.style.visibility = a > 0.01 ? 'visible' : 'hidden';
       }
-      const show = p >= S.header || stage.getBoundingClientRect().bottom < window.innerHeight * 0.5;
+      // stage is the first section, so off-screen means scrolled past it; no layout read (it forced a reflow every frame)
+      const show = p >= S.header || !visible;
       if (header) header.style.transform = show ? 'translateY(0)' : 'translateY(-100%)';
       if (fab) { fab.style.opacity = show ? '1' : '0'; fab.style.transform = show ? 'translateY(0)' : 'translateY(12px)'; fab.style.pointerEvents = show ? 'auto' : 'none'; }
     }
@@ -189,8 +199,8 @@
     }
 
     let st = null, tween = null, io = null;
-    const onResize = () => { resize(false); if (window.ScrollTrigger) window.ScrollTrigger.refresh(); };
-    const onScroll = () => { if (!visible) ui(progress); };
+    // mobile address-bar show/hide fires resize; resize() ignores it, so only refresh on real changes
+    const onResize = () => { if (resize(false) && window.ScrollTrigger) window.ScrollTrigger.refresh(); };
     let fallbackScroll = null;
 
     Promise.all([loadImg(CONFIG.images.icon), loadImg(CONFIG.images.lockup)]).then(([icon, lockup]) => {
@@ -218,7 +228,6 @@
       }
       io = new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) render(progress); else ui(progress); });
       io.observe(stage);
-      window.addEventListener('scroll', onScroll, { passive: true });
       render(progress);
     }).catch(err => console.error('[DMCHero] image load failed', err));
 
@@ -228,7 +237,6 @@
         destroyed = true;
         if (tween) tween.kill(); if (st) st.kill(); if (io) io.disconnect(); if (hintAnim) hintAnim.cancel();
         window.removeEventListener('resize', onResize);
-        window.removeEventListener('scroll', onScroll);
         if (fallbackScroll) window.removeEventListener('scroll', fallbackScroll);
       }
     };
