@@ -52,8 +52,9 @@ input,select,textarea,button{font-family:inherit}
 #dmc-copy{position:absolute;left:0;right:0;top:62%;opacity:0;visibility:hidden;padding:0 24px;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
 #dmc-copy h1{margin:0;font-family:'Gilda Display',serif;font-weight:400;font-size:clamp(28px,4vw,46px);line-height:1.15;color:var(--navy);max-width:640px;text-wrap:balance}
 #dmc-copy .btn{padding:15px 26px}
-/* hint doubles as a tap zone across the bottom quarter of the hero */
-#dmc-hint{position:absolute;left:0;right:0;bottom:0;height:25vh;padding:0 0 28px;border:0;background:transparent;font:inherit;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:12px}
+/* hint doubles as a tap zone across the bottom quarter of the hero;
+   100vh - 100svh = height of the mobile browser toolbar covering the hero's bottom, so the hint sits above it */
+#dmc-hint{position:absolute;left:0;right:0;bottom:0;bottom:calc(100vh - 100svh);height:25vh;padding:0 0 28px;border:0;background:transparent;font:inherit;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:12px}
 #dmc-hint:focus-visible .eyebrow{outline:2px solid var(--ocean);outline-offset:6px;border-radius:4px}
 .hint-track{width:1px;height:44px;background:var(--line);position:relative;overflow:hidden;display:block}
 #dmc-hint-line{position:absolute;inset:0;background:var(--teal);display:block}
