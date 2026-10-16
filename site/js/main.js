@@ -10,7 +10,9 @@
   function stopGlide() { if (glide) { glide.kill(); glide = null; document.documentElement.style.scrollBehavior = ''; } }
   ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { addEventListener(ev, stopGlide, { passive: true }); });
   document.getElementById('dmc-hint').addEventListener('click', function () {
-    var stage = document.getElementById('top'), end = stage.offsetTop + stage.offsetHeight - innerHeight;
+    // stop where the animation finishes, before the pinned hold that follows it
+    var C = DMCHero.CONFIG, stage = document.getElementById('top');
+    var end = stage.offsetTop + (stage.offsetHeight - innerHeight) * C.scrollLength / (C.scrollLength + C.hold);
     var pos = { y: scrollY };
     stopGlide();
     document.documentElement.style.scrollBehavior = 'auto'; // CSS smooth scroll would fight the per-frame scrollTo

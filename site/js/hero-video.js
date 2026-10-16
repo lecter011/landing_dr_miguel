@@ -16,7 +16,9 @@
     videoSize: [1920, 1080],
     videoIcon: [686, 249, 1227, 817],
     mobileBreakpoint: 768,
-    scrollLength: 3.2, // viewport heights of pinned scroll
+    scrollLength: 3.2, // viewport heights of pinned scroll that drive the animation
+    hold: 0.6,         // extra viewport heights the finished logo stays pinned before the page scrolls on
+    headerClear: 84,   // px kept free at the top for the fixed header (72px) so it never covers the logo
     scrub: 0.5,
     maxDPR: 2,
     stages: {
@@ -50,7 +52,7 @@
     let visible = true, destroyed = false, lastW = 0, lastH = 0, lastTime = -1, pendingTime = -1, canvasBlank = false;
     const mask = document.createElement('canvas'), mctx = mask.getContext('2d');
 
-    stage.style.height = reduced ? '100vh' : (CONFIG.scrollLength + 1) * 100 + 'vh';
+    stage.style.height = reduced ? '100vh' : (CONFIG.scrollLength + CONFIG.hold + 1) * 100 + 'vh';
 
     // ponytail: whole file fetched as a blob so every frame is seekable; fine at ~3MB, use a streamed source if the video grows
     const small = window.innerWidth < CONFIG.mobileBreakpoint || window.matchMedia('(pointer: coarse)').matches;
@@ -76,7 +78,7 @@
       if (!mobile) {
         const lw = B.lockup[2] - B.lockup[0], lh = B.lockup[3] - B.lockup[1];
         s = Math.min(W * 0.62, 760) / lw;
-        const gap = 48, top = Math.max(H * 0.1, (H - (lh * s + gap + copyH)) / 2);
+        const gap = 48, top = Math.max(H * 0.1, CONFIG.headerClear, (H - (lh * s + gap + copyH)) / 2);
         const left = cx - lw * s / 2;
         target = { x: left, y: top, w: iw * s, h: ih * s };
         // lines keep their native offsets relative to the lockup origin
@@ -86,7 +88,7 @@
         const blockW = B.line1[2] - B.line1[0], linesH = B.line2[3] - B.line1[1];
         s = Math.min((H * 0.15) / ih, (W * 0.84) / blockW);
         const g1 = 22, g2 = 34, total = ih * s + g1 + linesH * s + g2 + copyH;
-        const top = Math.max(H * 0.07, (H - total) / 2);
+        const top = Math.max(H * 0.07, CONFIG.headerClear, (H - total) / 2);
         target = { x: cx - iw * s / 2, y: top, w: iw * s, h: ih * s };
         linesX = cx - blockW * s / 2 - B.line1[0] * s;
         linesY = top + ih * s + g1 - B.line1[1] * s;
@@ -209,19 +211,19 @@
       resize(true);
       window.addEventListener('resize', onResize);
       if (reduced) { render(1); return; }
-      const state = { p: 0 };
+      const state = { p: 0 }, animScale = (CONFIG.scrollLength + CONFIG.hold) / CONFIG.scrollLength;
       if (window.gsap && window.ScrollTrigger) {
         window.gsap.registerPlugin(window.ScrollTrigger);
         tween = window.gsap.to(state, {
           p: 1, ease: 'none',
           scrollTrigger: { trigger: stage, start: 'top top', end: 'bottom bottom', scrub: CONFIG.scrub },
-          onUpdate: () => { progress = state.p; if (visible) render(progress); }
+          onUpdate: () => { progress = clamp01(state.p * animScale); if (visible) render(progress); }
         });
         st = tween.scrollTrigger;
       } else {
         fallbackScroll = () => {
           const r = stage.getBoundingClientRect(), total = r.height - window.innerHeight;
-          progress = clamp01(-r.top / Math.max(1, total)); if (visible) render(progress);
+          progress = clamp01(-r.top / Math.max(1, total) * animScale); if (visible) render(progress);
         };
         window.addEventListener('scroll', fallbackScroll, { passive: true });
         fallbackScroll();

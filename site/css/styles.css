@@ -44,7 +44,7 @@ input,select,textarea,button{font-family:inherit}
 @media (min-width:860px){.menu{display:none!important}}
 
 /* hero */
-#top{position:relative;height:350vh;background:#FFFFFF}
+#top{position:relative;height:480vh;background:#FFFFFF}
 #dmc-hero{position:sticky;top:0;height:100vh;overflow:hidden;background:#FFFFFF}
 #dmc-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* edge fade to white + brightness are baked into the video files (CSS mask/filter re-ran per frame and stalled mobile) */
