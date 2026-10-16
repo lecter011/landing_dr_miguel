@@ -1,0 +1,6 @@
+- create a claude.md file
+- setup and prepare the project for railway using docker
+- use psql db for any config
+- use scroll-world and AI Design Skills skills
+
+

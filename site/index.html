@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dr. Miguel Carrizoza — Odontología Integral &amp; Estética</title>
+<meta name="description" content="Dr. Miguel Carrizoza, cirujano dentista. Odontología integral y estética: limpieza, resinas, blanqueamiento, carillas, coronas, endodoncia, implantes y ortodoncia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/hero-video.js"></script>
+</head>
+<body>
+<div class="page">
+
+<header id="dmc-header">
+  <div class="bar">
+    <a href="#top" aria-label="Inicio" style="display:flex;align-items:center"><img src="assets/logo-horizontal-crop.png" alt="Dr. Miguel Carrizoza — Odontología Integral &amp; Estética" style="height:48px;width:auto;display:block"></a>
+    <nav class="nav-desktop">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#contacto">Contacto</a>
+      <a href="#contacto" class="cta">Agenda tu cita</a>
+    </nav>
+    <div class="nav-mobile-bar">
+      <a href="#contacto" class="cta">Agenda tu cita</a>
+      <button id="menu-btn" class="menu-btn" aria-label="Menú" aria-expanded="false" aria-controls="menu"><i class="ti ti-menu-2"></i></button>
+    </div>
+  </div>
+  <nav id="menu" class="menu" hidden>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<section id="top">
+  <div id="dmc-hero">
+    <canvas id="dmc-canvas" aria-label="Logotipo del Dr. Miguel Carrizoza" role="img"></canvas>
+    <video id="dmc-video" muted playsinline preload="auto" poster="assets/hero-poster.jpg" aria-label="Animación: un molar se transforma en el logotipo del Dr. Miguel Carrizoza"></video>
+    <div id="dmc-copy">
+      <h1>Atención cómoda y resultados que lucen naturales.</h1>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+        <a href="#contacto" class="btn btn-primary">Agenda tu cita</a>
+        <a href="https://wa.me/" target="_blank" rel="noopener" class="btn btn-outline"><i class="ti ti-brand-whatsapp" style="font-size:20px"></i>Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+    <button id="dmc-hint" type="button" aria-label="Desliza para ver el logotipo">
+      <span class="eyebrow">Desliza</span>
+      <span class="hint-track"><span id="dmc-hint-line"></span></span>
+    </button>
+  </div>
+</section>
+
+<section id="sobre-mi" class="section">
+  <div class="wrap split">
+    <div data-reveal class="portrait-stage">
+      <span class="portrait-halo" aria-hidden="true"></span>
+      <span class="portrait-ring" aria-hidden="true"></span>
+      <img class="sway-mark portrait-mark" src="assets/logo-icon-small.webp" alt="" aria-hidden="true" width="200" height="216">
+      <img src="assets/dr-miguel.webp" alt="Dr. Miguel Carrizoza, cirujano dentista" class="portrait" width="1024" height="1024">
+    </div>
+    <div data-reveal class="stack" style="gap:24px">
+      <div class="stack" style="gap:14px">
+        <span class="eyebrow eyebrow-lg">Sobre mí</span>
+        <h2 class="h2">Hola, soy el Dr. Miguel Carrizoza</h2>
+        <svg width="96" height="14" viewBox="0 0 96 14" fill="none" aria-hidden="true" style="display:block"><path d="M2 2 Q48 22 94 2" stroke="#0A5772" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <p class="lead" style="line-height:1.7;max-width:560px">Soy cirujano dentista y mi prioridad es que te sientas en confianza desde que entras al consultorio. Antes de cualquier tratamiento me tomo el tiempo de revisarte con calma, explicarte tus opciones y resolver todas tus dudas. Trabajo con técnicas mínimamente invasivas y materiales de alta calidad para cuidar tu salud bucal y lograr sonrisas que se vean naturales. Mi compromiso es que cada visita sea cómoda, clara y sin sorpresas.</p>
+      <div class="facts">
+        <div><span class="eyebrow">Universidad</span><span class="val"><span class="ph">[UNIVERSIDAD]</span></span></div>
+        <div><span class="eyebrow">Cédula profesional</span><span class="val"><span class="ph">[CÉDULA PROFESIONAL]</span></span></div>
+        <div><span class="eyebrow">Experiencia</span><span class="val" style="display:flex;align-items:center;gap:8px"><span class="ph">[AÑOS]</span>años de práctica</span></div>
+        <div><span class="eyebrow">Asociaciones</span><span class="val"><span class="ph">[ASOCIACIONES]</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="section">
+  <div class="wrap stack" style="gap:clamp(40px,5vw,64px)">
+    <div data-reveal class="stack services-head" style="align-items:center;text-align:center;gap:14px">
+      <img class="sway-mark services-mark" src="assets/logo-icon-small.webp" alt="" aria-hidden="true" width="200" height="216">
+      <span class="eyebrow eyebrow-lg">Servicios</span>
+      <h2 class="h2" style="max-width:720px">Tratamientos para cada etapa de tu sonrisa</h2>
+      <p class="lead" style="margin-top:6px;max-width:560px">Desde la prevención hasta la rehabilitación completa, te acompaño con un plan claro y a tu ritmo.</p>
+    </div>
+    <div data-reveal class="cards">
+      <div class="card"><i class="ti ti-shield-check"></i><h3>Limpieza y prevención</h3><p>Revisión completa y limpieza profesional para mantener dientes y encías sanos.</p></div>
+      <div class="card"><i class="ti ti-dental"></i><h3>Resinas estéticas</h3><p>Restauraciones del color de tu diente que reparan caries y desgastes sin notarse.</p></div>
+      <div class="card"><i class="ti ti-sun"></i><h3>Blanqueamiento dental</h3><p>Aclara el tono de tu sonrisa de forma segura y con resultados uniformes.</p></div>
+      <div class="card"><i class="ti ti-layers-subtract"></i><h3>Carillas</h3><p>Láminas delgadas que corrigen forma, color y tamaño con un acabado natural.</p></div>
+      <div class="card"><i class="ti ti-crown"></i><h3>Coronas y puentes</h3><p>Recupera dientes dañados o reemplaza piezas perdidas con prótesis fijas.</p></div>
+      <div class="card"><i class="ti ti-dental-broken"></i><h3>Endodoncia</h3><p>Tratamiento de conductos para aliviar el dolor y conservar tu diente.</p></div>
+      <div class="card"><i class="ti ti-anchor"></i><h3>Implantes dentales</h3><p>Una raíz artificial que reemplaza dientes perdidos de forma fija y duradera.</p></div>
+      <div class="card"><i class="ti ti-adjustments-horizontal"></i><h3>Ortodoncia</h3><p>Alinea tus dientes y mejora tu mordida con brackets o alineadores.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion" class="section">
+  <div class="wrap split-wide" style="align-items:center">
+    <div data-reveal class="map">
+      <iframe title="Mapa del consultorio" src="https://www.google.com/maps?q=Ciudad%20de%20M%C3%A9xico&amp;z=13&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <span class="ph">[EMBED DE GOOGLE MAPS CON LA DIRECCIÓN]</span>
+    </div>
+    <div data-reveal class="stack" style="gap:28px">
+      <div class="stack" style="gap:14px">
+        <span class="eyebrow eyebrow-lg">Ubicación</span>
+        <h2 class="h2">Te esperamos en el consultorio</h2>
+        <svg width="96" height="14" viewBox="0 0 96 14" fill="none" aria-hidden="true" style="display:block"><path d="M2 2 Q48 22 94 2" stroke="#0A5772" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="stack">
+        <div class="info-row">
+          <i class="ti ti-map-pin"></i>
+          <div class="stack" style="gap:6px">
+            <span class="eyebrow">Dirección</span>
+            <span style="color:var(--navy)"><span class="ph">[DIRECCIÓN]</span></span>
+            <span style="font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px">Cerca de <span class="ph">[PUNTO DE REFERENCIA]</span></span>
+          </div>
+        </div>
+        <div class="info-row" style="border-bottom:1px solid var(--line)">
+          <i class="ti ti-clock"></i>
+          <div class="stack" style="gap:6px">
+            <span class="eyebrow">Horario</span>
+            <span style="color:var(--navy)"><span class="ph">[HORARIO]</span></span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Dr.%20Miguel%20Carrizoza%20dentista" target="_blank" rel="noopener" class="btn btn-primary"><i class="ti ti-navigation" style="font-size:19px"></i>Cómo llegar</a>
+        <a href="tel:" class="btn btn-outline" style="background:transparent"><i class="ti ti-phone" style="font-size:19px"></i>Llamar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="contacto" class="section" style="padding-top:clamp(64px,9vw,120px)">
+  <div class="wrap split-wide" style="align-items:start">
+    <div data-reveal class="stack" style="gap:28px">
+      <div class="stack" style="gap:14px">
+        <span class="eyebrow eyebrow-lg">Contacto</span>
+        <h2 class="h2">Agenda tu cita</h2>
+        <svg width="96" height="14" viewBox="0 0 96 14" fill="none" aria-hidden="true" style="display:block"><path d="M2 2 Q48 22 94 2" stroke="#0A5772" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p class="lead" style="margin-top:4px;max-width:480px">Escríbeme por el medio que prefieras o déjame tus datos y te contacto para confirmar tu cita.</p>
+      </div>
+      <div class="stack" style="gap:10px">
+        <a href="https://wa.me/" target="_blank" rel="noopener" class="channel"><span class="ico"><i class="ti ti-brand-whatsapp"></i></span><span class="txt"><span class="eyebrow">WhatsApp</span><span><span class="ph">[WHATSAPP]</span></span></span><i class="ti ti-arrow-up-right"></i></a>
+        <a href="tel:" class="channel"><span class="ico"><i class="ti ti-phone"></i></span><span class="txt"><span class="eyebrow">Teléfono</span><span><span class="ph">[TELÉFONO]</span></span></span><i class="ti ti-arrow-up-right"></i></a>
+        <a href="mailto:" class="channel"><span class="ico"><i class="ti ti-mail"></i></span><span class="txt"><span class="eyebrow">Correo</span><span><span class="ph">[CORREO]</span></span></span><i class="ti ti-arrow-up-right"></i></a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" class="channel"><span class="ico"><i class="ti ti-brand-instagram"></i></span><span class="txt"><span class="eyebrow">Instagram</span><span><span class="ph">[INSTAGRAM]</span></span></span><i class="ti ti-arrow-up-right"></i></a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener" class="channel"><span class="ico"><i class="ti ti-brand-facebook"></i></span><span class="txt"><span class="eyebrow">Facebook</span><span><span class="ph">[FACEBOOK]</span></span></span><i class="ti ti-arrow-up-right"></i></a>
+      </div>
+    </div>
+
+    <div data-reveal class="form-box">
+      <form id="cita-form" class="stack" style="gap:18px">
+        <label class="field"><span>Nombre</span><input required name="nombre" autocomplete="name" placeholder="Tu nombre completo"></label>
+        <label class="field"><span>Teléfono</span><input required name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="10 dígitos"></label>
+        <label class="field"><span>Motivo de la cita</span>
+          <select required name="motivo" style="padding:0 14px">
+            <option value="">Selecciona una opción</option>
+            <option>Revisión y limpieza</option>
+            <option>Dolor o urgencia</option>
+            <option>Estética (blanqueamiento, carillas, resinas)</option>
+            <option>Ortodoncia</option>
+            <option>Implantes, coronas o puentes</option>
+            <option>Otro</option>
+          </select>
+        </label>
+        <label class="field"><span>Mensaje</span><textarea name="mensaje" rows="4" placeholder="Cuéntame brevemente qué necesitas"></textarea></label>
+        <label style="display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.5;cursor:pointer">
+          <input required type="checkbox" name="privacidad" style="width:20px;height:20px;margin:1px 0 0;accent-color:#036D9D;flex-shrink:0">
+          <span>He leído y acepto el <a href="#aviso" style="text-decoration:underline;text-underline-offset:3px">Aviso de privacidad</a>.</span>
+        </label>
+        <button type="submit" class="submit">Enviar solicitud</button>
+      </form>
+      <div id="cita-sent" class="stack" style="align-items:flex-start;gap:14px;padding:24px 0" hidden>
+        <i class="ti ti-circle-check" style="font-size:36px;color:var(--teal)"></i>
+        <h3 style="margin:0;font-family:'Gilda Display',serif;font-weight:400;font-size:30px;color:var(--navy)">Gracias, recibí tu mensaje</h3>
+        <p style="margin:0">Te contactaré pronto para confirmar el día y la hora de tu cita.</p>
+        <button id="cita-reset" type="button" style="margin-top:8px;padding:12px 20px;border:1px solid var(--teal);border-radius:12px;background:transparent;color:var(--teal);font-size:15px;font-weight:500;cursor:pointer">Enviar otro mensaje</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap stack" style="gap:48px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:40px">
+      <div><img src="assets/logo-horizontal-white.png" alt="Dr. Miguel Carrizoza" style="width:220px;max-width:100%;height:auto;display:block"></div>
+      <div class="stack" style="gap:10px"><span class="eyebrow">Dirección</span><span class="ph-dark">[DIRECCIÓN]</span></div>
+      <div class="stack" style="gap:10px"><span class="eyebrow">Horario</span><span class="ph-dark">[HORARIO]</span></div>
+      <div class="stack" style="gap:10px">
+        <span class="eyebrow">Teléfono</span>
+        <a href="tel:" class="ph-dark">[TELÉFONO]</a>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <a href="https://wa.me/" aria-label="WhatsApp" class="social"><i class="ti ti-brand-whatsapp" style="font-size:20px"></i></a>
+          <a href="https://instagram.com/" aria-label="Instagram" class="social"><i class="ti ti-brand-instagram" style="font-size:20px"></i></a>
+          <a href="https://facebook.com/" aria-label="Facebook" class="social"><i class="ti ti-brand-facebook" style="font-size:20px"></i></a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(142,189,211,0.2);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;color:var(--sky)">
+      <span>© 2026 Dr. Miguel Carrizoza · Odontología Integral &amp; Estética</span>
+      <a id="aviso" href="#aviso" style="color:var(--sky);text-decoration:underline;text-underline-offset:3px">Aviso de privacidad</a>
+    </div>
+  </div>
+</footer>
+
+<a id="dmc-fab" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><i class="ti ti-brand-whatsapp" style="font-size:30px"></i></a>
+
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>
